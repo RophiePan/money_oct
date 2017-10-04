@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>华力在线教育</title>
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+            th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}" />
+    <link href="../static/css/ace.css" rel="stylesheet" media="screen"
+            th:href="@{/css/ace.css}" />
+</head>
+<body>
+
+<div class="container">
+	<div class="row" style="padding-top: 20px">
+		<div class="col-sm-12">
+			<div class="widget-box">
+				<div class="widget-header">
+					<h4 class="widget-title">用户注册</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main no-padding">
+						<form class="form-horizontal" role="form" id="form1" method="post" action="/user/create">
+							<fieldset>
+								<div class="form-group">
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1">推荐人Id</label>
+				
+									<div class="col-sm-4">
+										<input type="text" id="recommendId" name="recommendId"  placeholder="请输入推荐人Id" class="col-xs-10 col-sm-10" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 密码 </label>
+				
+									<div class="col-sm-4">
+										<input type="password" id="password" name="password"  placeholder="请输入密码" class="col-xs-10 col-sm-10" />
+									</div>
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 确认密码 </label>
+				
+									<div class="col-sm-4">
+										<input type="password" id="confirmPassword" name="confirmPassword" placeholder="请再次输入密码 " class="col-xs-10 col-sm-10" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 姓名 </label>
+				
+									<div class="col-sm-4">
+										<input type="text" id="userName" name="userName"  placeholder="请输入姓名" class="col-xs-10 col-sm-10" />
+									</div>
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 身份证号 </label>
+				
+									<div class="col-sm-4">
+										<input type="text" id="idCard" name="idCard" placeholder="请输入身份证号 " class="col-xs-10 col-sm-10" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 银行卡号 </label>
+				
+									<div class="col-sm-4">
+										<input type="text"  id="bankCard" name="bankCard" placeholder="请输入银行卡号" class="col-xs-10 col-sm-10" />
+									</div>
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 开户银行 </label>
+				
+									<div class="col-sm-4">
+										<input type="text" id="bankName" name="bankName" placeholder="请输入开户银行名称" class="col-xs-10 col-sm-10" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 电话号码 </label>
+				
+									<div class="col-sm-4">
+										<input type="text"  id="phoneNumber" name="phoneNumber" placeholder="请输入电话号码" class="col-xs-10 col-sm-10" />
+									</div>
+									<label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 备注 </label>
+				
+									<div class="col-sm-4">
+										<input type="text" id="comments" name="comments" placeholder="请输入备注" class="col-xs-10 col-sm-10" />
+									</div>
+								</div>
+							</fieldset>
+							<div class="form-actions center">
+								<input type="submit" class="btn btn-sm btn-success">
+									<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+								</input>
+								<input type="reset" class="btn btn-sm btn-success">
+									<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+								</input>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+	<!--     footer -->
+    <div class="container" th:replace="fragments/footer :: footer">
+		<p>footer</p>
+	</div>
+</div>
+	
+</body>
+<script src="../static/js/common/jquery-2.1.4.min.js"
+          th:src="@{/js/common/jquery-2.1.4.min.js}"></script>
+<script src="../static/js/common/jquery.validate.min.js"
+         th:src="@{/js/common/jquery.validate.min.js}"></script>
+<script src="../static/js/register.js"
+          th:src="@{/js/register.js}"></script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8"/>
+<title>华力在线教育</title>
+<link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+        th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+<link href="../static/css/index.css" rel="stylesheet" media="screen"
+        th:href="@{/css/index.css}"/>
+<body>
+	<input type="hidden" id="msg" th:value="${msg}"></input>
+	<div class="container">
+      <form class="form-signin" id="form1" th:object="${post}" method="post" action="#" th:action="@{/user/login}">
+      	<fieldset>
+	        <h2 class="form-signin-heading">华力教育</h2>
+	        <label for="userId" class="sr-only">用户名</label>
+	        <input type="userId" id="userId" name="userId" class="form-control" placeholder="用户名" required="true" autofocus="true" ></input>
+	        <label for="inputPassword" class="sr-only">Password</label>
+	        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="true" ></input>
+	        <input class="btn btn-lg btn-primary btn-block" id="register" value="注	册" type="button"></input>
+	        <input class="btn btn-lg btn-primary btn-block" id="login" value="登	陆" type="submit"></input>
+      	 </fieldset>
+      </form>
+    </div> <!-- /container -->
+    
+    <div class="container" th:replace="fragments/footer :: footer">
+		<p>footer</p>
+	</div>
+	
+</body>
+<script src="../static/js/common/jquery-2.1.4.min.js"
+          th:src="@{/js/common/jquery-2.1.4.min.js}"></script>
+<script src="../static/js/common/jquery.validate.min.js"
+         th:src="@{/js/common/jquery.validate.min.js}"></script>
+<script src="../static/js/index.js"
+          th:src="@{/js/index.js}"></script>
+</html>

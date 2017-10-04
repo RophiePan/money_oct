@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/sellsep
+    username: sellsep
+    password: sellsep
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  thymeleaf:
+    cache: false
