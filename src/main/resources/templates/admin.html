@@ -9,14 +9,13 @@
 <body>
 	<input type="hidden" id="msg" th:value="${msg}"></input>
 	<div class="container">
-      <form class="form-signin" id="form1" th:object="${post}" method="post" action="#" th:action="@{/user/login}">
+      <form class="form-signin" id="form1" th:object="${post}" method="post" action="#" th:action="@{/admin/loginCheck}">
       	<fieldset>
-	        <h2 class="form-signin-heading">华力教育</h2>
-	        <label for="userId" class="sr-only">用户名</label>
-	        <input type="userId" id="userId" name="userId" class="form-control" placeholder="用户名" required="true" autofocus="true" ></input>
+	        <h2 class="form-signin-heading">管理员登陆</h2>
+	        <label for="adminAccount" class="sr-only">用户名</label>
+	        <input type="adminAccount" id="adminAccount" name="adminAccount" class="form-control" placeholder="用户名" required="true" autofocus="true" ></input>
 	        <label for="inputPassword" class="sr-only">密码</label>
-	        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="true" ></input>
-	        <input class="btn btn-lg btn-primary btn-block" id="register" value="注	册" type="button"></input>
+	        <input type="password" id="password" name="password" class="form-control" placeholder="密码" required="true" ></input>
 	        <input class="btn btn-lg btn-primary btn-block" id="login" value="登	陆" type="submit"></input>
       	 </fieldset>
       </form>
@@ -31,6 +30,6 @@
           th:src="@{/js/common/jquery-2.1.4.min.js}"></script>
 <script src="../static/js/common/jquery.validate.min.js"
          th:src="@{/js/common/jquery.validate.min.js}"></script>
-<script src="../static/js/index.js"
-          th:src="@{/js/index.js}"></script>
+<script src="../static/js/admin.js"
+          th:src="@{/js/admin.js}"></script>
 </html>

@@ -8,17 +8,17 @@ import javax.persistence.Id;
 public class Admin {
 	@Id
 	@GeneratedValue
-	private int adminId;
+	private Integer adminId;
 	private String adminAccount;
 	private String password;
 	private String adminName;
 	private String comment;
 
-	public int getAdminId() {
+	public Integer getAdminId() {
 		return this.adminId;
 	}
 
-	public void setAdminId(final int adminId) {
+	public void setAdminId(final Integer adminId) {
 		this.adminId = adminId;
 	}
 

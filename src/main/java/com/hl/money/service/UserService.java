@@ -1,6 +1,7 @@
 package com.hl.money.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,10 @@ public class UserService {
 
 	public int checkUser(final int userId) {
 		return this.userRepository.findUserByUserId(userId).size();
+	}
+
+	public List<User> getUsersByUserName(final String name) {
+		return this.userRepository.findUserByUserName(name);
 	}
 
 	@Transactional

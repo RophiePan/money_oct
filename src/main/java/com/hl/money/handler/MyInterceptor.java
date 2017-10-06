@@ -32,7 +32,18 @@ public class MyInterceptor implements HandlerInterceptor, Handler {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-		System.out.println("request URL : ----------" + request.getRequestURL());
+		String url = request.getRequestURL().toString();
+		if (url.contains("user/toRegister") || url.contains("user/checkUser") || (url.contains("login"))) {
+			return true;
+		}
+		if (url.endsWith("/")) {
+			return true;
+		}
+		String username = (String) request.getSession().getAttribute("name");
+		if ("".equals(username) || null == username) {
+			response.sendRedirect("/");
+			return false;
+		}
 		return true;
 	}
 

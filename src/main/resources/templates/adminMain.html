@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8"/>
+<title>华力在线教育</title>
+<link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+        th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+<link href="../static/css/ace.css" rel="stylesheet" media="screen"
+            th:href="@{/css/ace.css}" />
+<link href="../static/css/ace.css" rel="stylesheet" media="screen"
+            th:href="@{/css/font-awesome.css}" />
+<body>
+    <div class="container" th:replace="fragments/header :: header">
+	</div>
+    <div class="container" th:replace="fragments/footer :: footer">
+		<p>footer</p>
+	</div>
+</body>
+<script src="../static/js/common/jquery-2.1.4.min.js"
+          th:src="@{/js/common/jquery-2.1.4.min.js}"></script>
+<script src="../static/css/bootstrap-3.3.4-dist/js/bootstrap.min.js"
+          th:src="@{/css/bootstrap-3.3.4-dist/js/bootstrap.min.js}"></script>
+<script src="../static/js/common/jquery.validate.min.js"
+         th:src="@{/js/common/jquery.validate.min.js}"></script>
+<script src="../static/js/adminMain.js"
+          th:src="@{/js/adminMain.js}"></script>
+</html>

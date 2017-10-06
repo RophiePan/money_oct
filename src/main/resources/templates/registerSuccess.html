@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>华力在线教育</title>
+    <link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+            th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}" />
+    <link href="../static/css/ace.css" rel="stylesheet" media="screen"
+            th:href="@{/css/ace.css}" />
+</head>
+<body>
+
+<div class="container">
+	<div class="row" style="padding-top: 20px">
+	
+	<div class="widget-box">
+									<div class="widget-header widget-header-blue widget-header-flat">
+										<h4 class="widget-title lighter">注册成功</h4>
+									</div>
+
+									<div class="widget-body">
+										<div class="widget-main">
+											<!-- #section:plugins/fuelux.wizard -->
+											<div id="fuelux-wizard-container">
+												<!-- #section:plugins/fuelux.wizard.container -->
+												<div class="step-content pos-rel">
+													<div class="step-pane active" data-step="1">
+														<h3 class="lighter block red">请谨记此id，此Id用于系统登陆！</h3>
+
+														<form class="form-horizontal" id="sample-form">
+															<div class="form-group has-success">
+																<label for="inputSuccess" class="col-xs-12 col-sm-3 control-label no-padding-right"></label>
+																<div style="display: none" class="col-xs-12 col-sm-5">
+																	<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputSuccess" class="width-100" />
+																		<i class="ace-icon fa fa-check-circle"></i>
+																	</span>
+																</div>
+															</div>
+															<div class="form-group has-success">
+																<label for="inputSuccess" class="col-xs-12 col-sm-3 control-label no-padding-right">您的用户id</label>
+																<div class="col-xs-12 col-sm-5">
+																	<span class="block input-icon input-icon-right">
+																		<input type="text" id="inputSuccess" class="width-100" disabled="disabled" th:value="${userId}"/>
+																		<i class="ace-icon fa fa-check-circle"></i>
+																	</span>
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+
+												<!-- /section:plugins/fuelux.wizard.container -->
+											</div>
+											<hr />
+											<div class="wizard-actions">
+												<a class="btn btn-success btn-next" href="/" data-last="Finish">
+													跳转至登陆页面
+													<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+												</a>
+											</div>
+										</div><!-- /.widget-main -->
+									</div><!-- /.widget-body -->
+								</div>
+		
+	</div>
+    
+	<!--     footer -->
+    <div class="container" th:replace="fragments/footer :: footer">
+		<p>footer</p>
+	</div>
+</div>
+	
+</body>
+<script src="../static/js/common/jquery-2.1.4.min.js"
+          th:src="@{/js/common/jquery-2.1.4.min.js}"></script>
+<script src="../static/js/common/jquery.validate.min.js"
+         th:src="@{/js/common/jquery.validate.min.js}"></script>
+<script src="../static/js/register.js"
+          th:src="@{/js/register.js}"></script>
+</html>

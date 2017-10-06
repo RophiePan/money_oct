@@ -33,7 +33,14 @@ $(function() {
 			}
 		},
 		submitHandler: function(form){
-			form.submit();
+			$.get("/user/checkUser/" + $("#userId").val() + "/" + $("#password").val(), function(data, status){
+				 if(data.code == 204){
+					 alert(data.msg);
+					 return false;
+				 }else{
+					 form.submit();
+				 }
+		    });
 		}
 	});
 	
