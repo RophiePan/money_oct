@@ -96,8 +96,8 @@ public class UserController {
 	@ResponseBody
 	public Result<String> checkUserId(@PathVariable final String recommendId) {
 		final Result<String> result = new Result<>();
-		final int i = this.userService.checkUser(Integer.valueOf(recommendId));
-		if (i == 0) {
+		final List<User> userList = this.userService.checkUser(Integer.valueOf(recommendId));
+		if (CollectionUtils.isEmpty(userList)) {
 			result.setCode(HttpStatus.NO_CONTENT.value());
 			result.setMsg("用户不存在");
 		} else {

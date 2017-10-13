@@ -4,8 +4,7 @@
     <meta charset="UTF-8"/>
 </head>
 <body>
-<div class="container" th:fragment="header">
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top" th:fragment="header" style="margin-bottom: 30px">
     <ul class="nav ace-nav">
 		<li class="light-blue">
 			<a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -24,18 +23,18 @@
 				<li>
 					<a href="/admin/audit">
 						<i class="ace-icon fa fa-user"></i>
-						账户审核
+						用户审核
 					</a>
 				</li>
 				<li>
 					<a href="/admin/award">
-						<i class="ace-icon fa fa-power-off"></i>
+						<i class="ace-icon fa fa-user"></i>
 						奖金发放
 					</a>
 				</li>
 				<li>
 					<a href="/admin/modifyUser">
-						<i class="ace-icon fa fa-power-off"></i>
+						<i class="ace-icon fa fa-user"></i>
 						用户基本修改
 					</a>
 				</li>
@@ -75,7 +74,6 @@
 		</li>
     </ul>
     </div>
-</div>
 
 </body>
 </html>

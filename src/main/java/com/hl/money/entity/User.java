@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int userId;
+	private Integer userId;
 	@NotBlank
 	private String userName;
 	@NotBlank
@@ -28,19 +28,19 @@ public class User {
 	@NotBlank
 	private String phoneNumber;
 	@NotNull
-	private int recommendId;
+	private Integer recommendId;
 	@NotNull
-	private int userStatus;
+	private Integer userStatus;
 	@NotNull
 	private Date registerDate; // 状态0为未审核，状态1为已审核
 	private Date auditDate;
 	private String comments;
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(final int userId) {
+	public void setUserId(final Integer userId) {
 		this.userId = userId;
 	}
 
@@ -92,19 +92,19 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public int getRecommendId() {
+	public Integer getRecommendId() {
 		return this.recommendId;
 	}
 
-	public void setRecommendId(final int recommendId) {
+	public void setRecommendId(final Integer recommendId) {
 		this.recommendId = recommendId;
 	}
 
-	public int getUserStatus() {
+	public Integer getUserStatus() {
 		return this.userStatus;
 	}
 
-	public void setUserStatus(final int userStatus) {
+	public void setUserStatus(final Integer userStatus) {
 		this.userStatus = userStatus;
 	}
 
