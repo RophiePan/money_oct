@@ -98,7 +98,8 @@ public class AdminController {
 	public ModelAndView auditUserPass(final HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		String userId = request.getParameter("userId");
-		
+		this.adminService.auditUserPass(Integer.valueOf(userId));
+		mv.setViewName("redirect:/admin/audit");
 		return mv;
 	}
 

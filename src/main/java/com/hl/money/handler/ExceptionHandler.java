@@ -20,7 +20,8 @@ public class ExceptionHandler {
 
 		if (e instanceof MyException) {
 			MyException myException = (MyException) e;
-			mv.addObject("error", myException);
+			mv.addObject("errorMsg", myException.getMessage());
+			mv.setViewName("/error");
 		}
 		return mv;
 	}

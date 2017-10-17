@@ -99,7 +99,7 @@ public class UserController {
 		final List<User> userList = this.userService.checkUser(Integer.valueOf(recommendId));
 		if (CollectionUtils.isEmpty(userList)) {
 			result.setCode(HttpStatus.NO_CONTENT.value());
-			result.setMsg("用户不存在");
+			result.setMsg("用户不存在或未审核通过");
 		} else {
 			result.setCode(HttpStatus.ACCEPTED.value());
 			result.setMsg("用户已存在");

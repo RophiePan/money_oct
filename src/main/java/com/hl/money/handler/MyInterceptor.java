@@ -33,7 +33,8 @@ public class MyInterceptor implements HandlerInterceptor, Handler {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		String url = request.getRequestURL().toString();
-		if (url.contains("user/toRegister") || url.contains("user/checkUser") || (url.contains("login"))) {
+		if (url.contains("user/toRegister") || url.contains("user/checkUser") || url.contains("login")
+				|| url.contains("user/create")) {
 			return true;
 		}
 		if (url.endsWith("/")) {

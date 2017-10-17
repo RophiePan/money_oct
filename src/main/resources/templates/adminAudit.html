@@ -66,10 +66,10 @@
 	                <td th:text="${view.registerDate}"></td>
 	                <td th:text="${view.comments}"></td>
 	                <td>
-	                	<div class="bulk-actions align-right">
+	                	<div class="bulk-actions align-left">
                     		<a class="button" id="deleteUser" th:href="@{/admin/deleteUser/(userId=${view.userId})}">删除</a></div>
                     	<div class="bulk-actions align-right">
-                    		<a class="button" id="auditUser">审核通过</a></div>
+                    		<a class="button" id="auditUser" th:href="@{/admin/auditUserPass/(userId=${view.userId})}">审核通过 </a></div>
 	                </td>
 	              </tr>
 	            </tbody>

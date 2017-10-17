@@ -8,81 +8,69 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 public class UserNode {
 	@Id
 	@GeneratedValue
 	@Column(columnDefinition = "Primary Key")
-	private int nodeId;
+	private Integer nodeId;
 	@NotNull
-	private int userId;
+	private Integer userId;
 	@NotNull
 	@Column(columnDefinition = "推荐人的Id 也是此人的根节点")
-	private int rootNodeId;
-	@NotNull
-	@Column(columnDefinition = "此人在根节点的哪个分支上 1 代表左分支， 2 代表右分支")
-	private int rootSubBranch;
+	private Integer rootNodeId;
 	@NotNull
 	@Column(columnDefinition = "父节点的Id")
-	private int parentId;
+	private Integer parentId;
 	@NotNull
 	@Column(columnDefinition = "父节点的分支，1 代表左分支，2 代表右分支。 每个分支最多含有9层，9个节点（包含自己）")
-	private int subBranch;
+	private Integer subBranch;
 	@NotNull
 	@Column(columnDefinition = "节点创建日期")
 	private Date createDate;
 	@NotNull
 	@Column(columnDefinition = "节点层数，从1开始")
-	private int level;
-	
+	private Integer level;
+
 	private String comment;
 
-	public int getNodeId() {
+	public Integer getNodeId() {
 		return this.nodeId;
 	}
 
-	public void setNodeId(final int nodeId) {
+	public void setNodeId(final Integer nodeId) {
 		this.nodeId = nodeId;
 	}
 
-	public int getSubBranch() {
+	public Integer getSubBranch() {
 		return this.subBranch;
 	}
 
-	public void setSubBranch(final int subBranch) {
+	public void setSubBranch(final Integer subBranch) {
 		this.subBranch = subBranch;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(final int userId) {
+	public void setUserId(final Integer userId) {
 		this.userId = userId;
 	}
 
-	public int getRootNodeId() {
+	public Integer getRootNodeId() {
 		return this.rootNodeId;
 	}
 
-	public void setRootNodeId(final int rootNodeId) {
+	public void setRootNodeId(final Integer rootNodeId) {
 		this.rootNodeId = rootNodeId;
 	}
 
-	public int getRootSubBranch() {
-		return this.rootSubBranch;
-	}
-
-	public void setRootSubBranch(final int rootSubBranch) {
-		this.rootSubBranch = rootSubBranch;
-	}
-
-	public int getParentId() {
+	public Integer getParentId() {
 		return this.parentId;
 	}
 
-	public void setParentId(final int parentId) {
+	public void setParentId(final Integer parentId) {
 		this.parentId = parentId;
 	}
 
@@ -94,6 +82,14 @@ public class UserNode {
 		this.createDate = createDate;
 	}
 
+	public Integer getLevel() {
+		return this.level;
+	}
+
+	public void setLevel(final Integer level) {
+		this.level = level;
+	}
+
 	public String getComment() {
 		return this.comment;
 	}
@@ -101,4 +97,5 @@ public class UserNode {
 	public void setComment(final String comment) {
 		this.comment = comment;
 	}
+
 }

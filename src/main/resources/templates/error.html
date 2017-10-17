@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8"/>
+<title>华力在线教育</title>
+<link href="../static/css/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" media="screen"
+        th:href="@{/css/bootstrap-3.3.4-dist/css/bootstrap.min.css}"/>
+<body>
+	<h1 th:text="${errorMsg}">aaa</h1>
+    <div class="container" th:replace="fragments/footer :: footer">
+		<p>footer</p>
+	</div>
+	
+</body>
+</html>
