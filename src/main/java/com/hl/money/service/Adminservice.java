@@ -59,7 +59,7 @@ public class Adminservice {
 			recommendUserNode = recommendUserNodeList.get(0);
 		}
 		final List<UserNode> userNodeList = this.userNodeService.getUserNodeByUserId(userId);
-		if(userNodeList.size()>0){
+		if (userNodeList.size() > 0) {
 			throw new MyException("此人已建点！");
 		}
 
@@ -77,7 +77,7 @@ public class Adminservice {
 			newNode.setParentId(recommendId);
 			newNode.setSubBranch(SubBranch.LEFT.getValue());
 			newNode.setLevel(recommendUserNode.getLevel() + 1);
-		} else if (size == 1) {
+		} else {
 			final UserNode parentNode = this.findNodeByRecommendId(allNode, recommendUserNode, recommendUserNode);
 			if (this.getChildrenSize(allNode, parentNode.getUserId()) == 0) {
 				newNode.setSubBranch(SubBranch.LEFT.getValue());
@@ -98,7 +98,7 @@ public class Adminservice {
 		recommendBonus.setAmount(1500);
 		recommendBonus.setBonusType(BonusType.RECOMMEND.toString());
 		recommendBonus.setAwardDate(new Date());
-		recommendBonus.setComments("推荐 " + newNode.getUserId() + " 奖金");
+		recommendBonus.setComments("推荐用户：" + user.getUserName() + "-" + newNode.getUserId() + " 奖金");
 		bonusList.add(recommendBonus);
 
 		final List<UserNode> parentNodes = new ArrayList<>();
@@ -110,7 +110,7 @@ public class Adminservice {
 			nodeBonus.setAwardDate(new Date());
 			nodeBonus.setBonusType(BonusType.CREATENODE.toString());
 			nodeBonus.setUserId(userNode.getUserId());
-			nodeBonus.setComments(newNode.getUserId() + "  建点奖金");
+			nodeBonus.setComments("用户：" + user.getUserName() + "-" + newNode.getUserId() + "  建点奖金");
 			bonusList.add(nodeBonus);
 		}
 		this.bonusRepository.save(bonusList);
@@ -140,36 +140,56 @@ public class Adminservice {
 		return childrenNode.size();
 	}
 
+	/**
+	 * 
+	 * @param allNode
+	 * @param recommendUserNode
+	 * @param originNode
+	 *            一直作为最初的推荐node，如果推荐人左右全满，则此节点会变更为左右分支下的点
+	 * @return
+	 */
 	private UserNode findNodeByRecommendId(final List<UserNode> allNode, final UserNode recommendUserNode,
-			final UserNode childNode) {
+			final UserNode originNode) {
 
 		final List<UserNode> childNodes = new ArrayList<>();
 		for (final UserNode userNode : allNode) {
-			if (userNode.getParentId() == recommendUserNode.getUserId()) {
+			if (userNode.getParentId().intValue() == recommendUserNode.getUserId().intValue()
+					&& userNode.getUserId().intValue() != 10000) {
 				childNodes.add(userNode);
 			}
 		}
+
+		final List<UserNode> originChildNodes = new ArrayList<>();
+		for (UserNode userNode : allNode) {
+			if (userNode.getParentId().intValue() == originNode.getUserId().intValue()
+					&& userNode.getUserId().intValue() != 10000) {
+				originChildNodes.add(userNode);
+			}
+		}
+
 		if (childNodes.size() == 0) {
 			// 如果节点在第八层，则小于等于7，可以放在此节点下面，作为最后一层第9层
-			if ((childNode.getLevel() - recommendUserNode.getLevel()) <= 7) {
-				return childNode;
+			if ((recommendUserNode.getLevel() - originNode.getLevel()) <= 7) {
+				return recommendUserNode;
 			}
-			// 如果为第九层，则返回自己，在右侧开分支
+			// 如果为第九层，则返回自己，在右侧开分支----此判断是用来判断左侧满点的
 			else {
 				// 如果推荐人已经有两个节点，并且右侧已满，刚从子节点重新开始查找
-				if (childNodes.size() == 2) {
-					final int i = Math.random() > 0.5d ? 0 : 1;
-					this.findNodeByRecommendId(allNode, childNodes.get(i), childNodes.get(i));
+				if (this.getChildrenSize(allNode, originNode.getUserId()) == 2) {
+					// 从左侧找
+					return this.findNodeByRecommendId(allNode, originChildNodes.get(0), originChildNodes.get(0));
 				} else {
-					return recommendUserNode;
+					return originNode;
 				}
 			}
 		} else if (childNodes.size() == 1) {
-			this.findNodeByRecommendId(allNode, recommendUserNode, childNodes.get(0));
+			// 如果子节点为1，则继续判断此节点下面有没有人，所以需要把recomendUserNode，换成子节点的Node
+			return this.findNodeByRecommendId(allNode, childNodes.get(0), originNode);
 		} else {
 			for (final UserNode userNode : childNodes) {
 				if (userNode.getSubBranch() == SubBranch.RIGHT.getValue()) {
-					this.findNodeByRecommendId(allNode, recommendUserNode, userNode);
+					// 右侧继续往下寻找
+					return this.findNodeByRecommendId(allNode, userNode, originNode);
 				}
 			}
 		}

@@ -30,7 +30,7 @@ $(function(){
 			},
 			bankName: {
 				required: true,
-				minlength: 10
+				minlength: 2
 			},
 			phoneNumber: {
 				required: true,
@@ -63,7 +63,7 @@ $(function(){
 			},
 			bankName: {
 				required: "开户行不能为空",
-				minlength: "开户行至少为10位"
+				minlength: "开户行至少为2位"
 			},
 			phoneNumber: {
 				required: "手机号不能为空",

@@ -40,7 +40,6 @@
 	                <th>联系方式</th>
 	                <th>推荐人Id</th>
 	                <th>注册日期</th>
-	                <th>备注</th>
 	                <th>操作</th>
 	              </tr>
 	            </thead>
@@ -64,7 +63,6 @@
 	                <td th:text="${view.phoneNumber}"></td>
 	                <td th:text="${view.recommendId}"></td>
 	                <td th:text="${view.registerDate}"></td>
-	                <td th:text="${view.comments}"></td>
 	                <td>
 	                	<div class="bulk-actions align-left">
                     		<a class="button" id="deleteUser" th:href="@{/admin/deleteUser/(userId=${view.userId})}">删除</a></div>
