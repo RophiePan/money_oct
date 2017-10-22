@@ -1,9 +1,7 @@
 package com.hl.money.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -37,26 +35,26 @@ public class UserNodeService {
 	}
 
 	private Nodes bulidNodes(final List<UserNode> allNodes, final UserNode parentNode) {
-		Nodes parentNodes = new Nodes();
+		final Nodes parentNodes = new Nodes();
 		parentNodes.setUserNode(parentNode);
 		this.findChildNode(allNodes, parentNodes);
 		return parentNodes;
 	}
 
 	private void findChildNode(final List<UserNode> allNodes, final Nodes parentNodes) {
-		if (isHasChild(allNodes, parentNodes.getUserNode())) {
-			List<UserNode> childNodes = this.getUserNode(allNodes, parentNodes.getUserNode());
-			for (UserNode userNode : childNodes) {
-				Nodes node = new Nodes();
+		if (this.isHasChild(allNodes, parentNodes.getUserNode())) {
+			final List<UserNode> childNodes = this.getUserNode(allNodes, parentNodes.getUserNode());
+			for (final UserNode userNode : childNodes) {
+				final Nodes node = new Nodes();
 				node.setUserNode(userNode);
 				parentNodes.getChildren().add(node);
-				findChildNode(allNodes, node);
+				this.findChildNode(allNodes, node);
 			}
 		}
 	}
 
-	private boolean isHasChild(List<UserNode> allNodes, final UserNode parentNode) {
-		for (UserNode userNode : allNodes) {
+	private boolean isHasChild(final List<UserNode> allNodes, final UserNode parentNode) {
+		for (final UserNode userNode : allNodes) {
 			if (userNode.getParentId().intValue() == parentNode.getUserId().intValue()) {
 				return true;
 			}
@@ -65,8 +63,8 @@ public class UserNodeService {
 	}
 
 	private List<UserNode> getUserNode(final List<UserNode> allNodes, final UserNode parentNode) {
-		List<UserNode> childNodes = new ArrayList<UserNode>();
-		for (UserNode userNode : allNodes) {
+		final List<UserNode> childNodes = new ArrayList<>();
+		for (final UserNode userNode : allNodes) {
 			if (userNode.getParentId().intValue() == parentNode.getUserId().intValue()) {
 				childNodes.add(userNode);
 			}

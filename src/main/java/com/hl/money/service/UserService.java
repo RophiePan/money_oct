@@ -22,6 +22,12 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	public Page<User> getAllUser(final int currentPage, final int size) {
+		final Sort sort = new Sort(Sort.Direction.ASC, "userId");
+		final Pageable page = new PageRequest(currentPage - 1, size, sort);
+		return this.userRepository.findAll(page);
+	}
+
 	public User getUserByIdPassword(final User user) {
 		return this.userRepository.findUserByUserIdAndPassword(user.getUserId(), user.getPassword());
 	}
@@ -36,6 +42,12 @@ public class UserService {
 
 	public List<User> getUsersByUserName(final String name) {
 		return this.userRepository.findUserByUserName(name);
+	}
+
+	public Page<User> getUsersByRecommendId(final int recommendId, final int currentPage, final int size) {
+		final Sort sort = new Sort(Sort.Direction.ASC, "userId");
+		final Pageable page = new PageRequest(currentPage - 1, size, sort);
+		return this.userRepository.findUserByRecommendId(recommendId, page);
 	}
 
 	public Page<User> getUsersByUserStatus(final int status, final int currentPage, final int size) {

@@ -6,8 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hl.money.domain.Nodes;
+import com.hl.money.entity.Bonus;
 import com.hl.money.entity.Result;
 import com.hl.money.entity.User;
+import com.hl.money.service.BonusService;
+import com.hl.money.service.UserNodeService;
 import com.hl.money.service.UserService;
+import com.hl.money.utils.PageUtil;
 
 @RestController
 @ResponseBody
@@ -26,6 +33,12 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserNodeService userNodeService;
+
+	@Autowired
+	private BonusService bonusService;
 
 	@RequestMapping("/toRegister")
 	public ModelAndView toRegister() {
@@ -43,7 +56,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView userLogin(HttpServletRequest request, final User u) {
+	public ModelAndView userLogin(final HttpServletRequest request, final User u) {
 		final ModelAndView mv = new ModelAndView();
 		final User user = this.userService.getUserByIdPassword(u);
 		if (null == user) {
@@ -107,6 +120,69 @@ public class UserController {
 		return result;
 	}
 
+	@RequestMapping("/all")
+	public ModelAndView toAllNode() {
+		// 校验此用户是否注册
+		final ModelAndView mv = new ModelAndView();
+		mv.setViewName("/userNodes");
+		return mv;
+	}
+
+	@RequestMapping("/getAllNodes")
+	public Nodes getAllNodes(final HttpServletRequest request) {
+		final String userId = String.valueOf(request.getSession().getAttribute("name"));
+		final Nodes nodes = this.userNodeService.getNodes(Integer.valueOf(userId));
+		return nodes;
+	}
+
+	@RequestMapping("/awardhistroy")
+	public ModelAndView getAwardHistroy(final HttpServletRequest request) {
+		final ModelAndView mv = new ModelAndView();
+
+		final String currentPageStr = request.getParameter("page");
+		int currentPage = 1;
+		final int perpage = 10;
+		if (!StringUtils.isEmpty(currentPageStr)) {
+			currentPage = Integer.parseInt(currentPageStr);
+		}
+		// 分页请求数据URL地址
+		final String url = "/user/awardhistroy?";
+		final String userId = String.valueOf(request.getSession().getAttribute("name"));
+
+		final Page<Bonus> listBonus = this.bonusService.getBonusById(Integer.valueOf(userId), currentPage, 10);
+		final Long total = listBonus.getTotalElements();
+		final String pageHtml = PageUtil.getBackPageHtml(currentPage, perpage, total.intValue(), url);
+		mv.setViewName("/userAward");
+		mv.addObject("bonus", listBonus);
+		mv.addObject("pageHtml", pageHtml);
+
+		return mv;
+	}
+
+	@RequestMapping("/recommend")
+	public ModelAndView getRecommendByUserId(final HttpServletRequest request) {
+		final ModelAndView mv = new ModelAndView();
+
+		final String currentPageStr = request.getParameter("page");
+		int currentPage = 1;
+		final int perpage = 10;
+		if (!StringUtils.isEmpty(currentPageStr)) {
+			currentPage = Integer.parseInt(currentPageStr);
+		}
+		// 分页请求数据URL地址
+		final String url = "/user/recommend?";
+		String userId = String.valueOf(request.getSession().getAttribute("name"));
+
+		final Page<User> listUsers = this.userService.getUsersByRecommendId(Integer.valueOf(userId), currentPage, 10);
+		final Long total = listUsers.getTotalElements();
+		final String pageHtml = PageUtil.getBackPageHtml(currentPage, perpage, total.intValue(), url);
+		mv.setViewName("/userRecommend");
+		mv.addObject("users", listUsers);
+		mv.addObject("pageHtml", pageHtml);
+
+		return mv;
+	}
+
 	@RequestMapping("/logout")
 	public ModelAndView logout(final HttpServletRequest request) {
 		final ModelAndView mv = new ModelAndView();
@@ -117,5 +193,4 @@ public class UserController {
 		mv.setViewName("redirect:/");
 		return mv;
 	}
-
 }

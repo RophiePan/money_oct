@@ -20,6 +20,9 @@ public class Bonus {
 	@NotNull
 	private Integer userId;
 
+	@NotBlank
+	private String userName;
+
 	@NotNull
 	private Integer amount;
 
@@ -48,6 +51,14 @@ public class Bonus {
 
 	public void setUserId(final Integer userId) {
 		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return this.userName;
+	}
+
+	public void setUserName(final String userName) {
+		this.userName = userName;
 	}
 
 	public Integer getAmount() {

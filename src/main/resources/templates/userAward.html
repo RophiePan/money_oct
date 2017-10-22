@@ -36,7 +36,6 @@
 		                <th>奖励日期</th>
 		                <th>奖励状态</th>
 		                <th>注释</th>
-<!-- 		                <th>发放</th> -->
 		              </tr>
 	            	</thead>
 	            	<tfoot>
@@ -60,10 +59,6 @@
 		                <td th:if="${view.status == 0}">未发放</td>
 		                <td th:if="${view.status == 1}">已发放</td>
 		                <td th:text="${view.comments}"></td>
-<!-- 		                <td> -->
-<!-- 	                    	<div class="bulk-actions align-right"> -->
-<!-- 	                    		<a class="button" id="auditUser" th:if="${view.status == 0}" th:href="@{/admin/payaward/(bonusId=${view.bonusId})}">发放 </a></div> -->
-<!-- 		                </td> -->
 		              </tr>
 		            </tbody>
 	          	  </table>

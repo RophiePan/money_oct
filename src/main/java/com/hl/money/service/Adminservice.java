@@ -103,6 +103,7 @@ public class Adminservice {
 		// 插入奖金
 		final Bonus recommendBonus = new Bonus();
 		recommendBonus.setUserId(recommendId);
+		recommendBonus.setUserName(user.getRecommendName());
 		recommendBonus.setAmount(1500);
 		recommendBonus.setBonusType(BonusType.RECOMMEND.toString());
 		recommendBonus.setAwardDate(new Date());
@@ -119,6 +120,7 @@ public class Adminservice {
 			nodeBonus.setAwardDate(new Date());
 			nodeBonus.setBonusType(BonusType.CREATENODE.toString());
 			nodeBonus.setUserId(userNode.getUserId());
+			nodeBonus.setUserName(userNode.getUserName());
 			nodeBonus.setComments("用户：" + user.getUserName() + "-" + newNode.getUserId() + "  建点奖金");
 			nodeBonus.setStatus(BonusStatus.UNDELIVER.getValue());
 			bonusList.add(nodeBonus);

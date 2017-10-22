@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hl.money.domain.Nodes;
 import com.hl.money.entity.Admin;
+import com.hl.money.entity.Bonus;
 import com.hl.money.entity.User;
 import com.hl.money.enums.UserStatus;
 import com.hl.money.service.Adminservice;
+import com.hl.money.service.BonusService;
 import com.hl.money.service.UserNodeService;
 import com.hl.money.service.UserService;
 import com.hl.money.utils.PageUtil;
@@ -35,6 +37,9 @@ public class AdminController {
 
 	@Autowired
 	private UserNodeService userNodeService;
+
+	@Autowired
+	private BonusService bonusService;
 
 	@RequestMapping("/login")
 	public ModelAndView toAdmin() {
@@ -115,10 +120,55 @@ public class AdminController {
 		return mv;
 	}
 
+	@RequestMapping("/toModifyUser")
+	public ModelAndView modifyUser(final HttpServletRequest request) {
+		final ModelAndView mv = new ModelAndView();
+		final String currentPageStr = request.getParameter("page");
+
+		int currentPage = 1;
+		final int perpage = 10;
+		if (!StringUtils.isEmpty(currentPageStr)) {
+			currentPage = Integer.parseInt(currentPageStr);
+		}
+		// 分页请求数据URL地址
+		final String url = "/admin/toModifyUser?";
+		// 取得分页工具条
+		final Page<User> users = this.userService.getAllUser(currentPage, 10);
+		final Long total = users.getTotalElements();
+		final String pageHtml = PageUtil.getBackPageHtml(currentPage, perpage, total.intValue(), url);
+
+		mv.addObject("users", users);
+		mv.addObject("pageHtml", pageHtml);
+		mv.setViewName("/adminModify");
+		return mv;
+	}
+
 	@RequestMapping("/getAllNodes")
 	public Nodes getAllNodes() {
 		final Nodes nodes = this.userNodeService.getNodes(10000);
 		return nodes;
+	}
+
+	@RequestMapping("/award")
+	public ModelAndView getAllAward(final HttpServletRequest request) {
+		final ModelAndView mv = new ModelAndView();
+
+		final String currentPageStr = request.getParameter("page");
+		int currentPage = 1;
+		final int perpage = 10;
+		if (!StringUtils.isEmpty(currentPageStr)) {
+			currentPage = Integer.parseInt(currentPageStr);
+		}
+		// 分页请求数据URL地址
+		final String url = "/admin/award?";
+		// 取得分页工具条
+		final Page<Bonus> listBonus = this.bonusService.getAllBonus(currentPage, perpage);
+		final Long total = listBonus.getTotalElements();
+		final String pageHtml = PageUtil.getBackPageHtml(currentPage, perpage, total.intValue(), url);
+		mv.setViewName("/adminAward");
+		mv.addObject("bonus", listBonus);
+		mv.addObject("pageHtml", pageHtml);
+		return mv;
 	}
 
 	@RequestMapping("/logout")
