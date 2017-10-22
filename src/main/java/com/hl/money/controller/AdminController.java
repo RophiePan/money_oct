@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hl.money.domain.Nodes;
 import com.hl.money.entity.Admin;
 import com.hl.money.entity.User;
 import com.hl.money.enums.UserStatus;
 import com.hl.money.service.Adminservice;
+import com.hl.money.service.UserNodeService;
 import com.hl.money.service.UserService;
 import com.hl.money.utils.PageUtil;
 
@@ -30,6 +32,9 @@ public class AdminController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserNodeService userNodeService;
 
 	@RequestMapping("/login")
 	public ModelAndView toAdmin() {
@@ -87,7 +92,7 @@ public class AdminController {
 
 	@RequestMapping("/deleteUser")
 	public ModelAndView deleteUser(final HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
+		final ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:../audit");
 		final String userId = request.getParameter("userId");
 		this.userService.deleteUserById(Integer.valueOf(userId));
@@ -96,11 +101,24 @@ public class AdminController {
 
 	@RequestMapping("/auditUserPass")
 	public ModelAndView auditUserPass(final HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		String userId = request.getParameter("userId");
+		final ModelAndView mv = new ModelAndView();
+		final String userId = request.getParameter("userId");
 		this.adminService.auditUserPass(Integer.valueOf(userId));
 		mv.setViewName("redirect:/admin/audit");
 		return mv;
+	}
+
+	@RequestMapping("/all")
+	public ModelAndView all() {
+		final ModelAndView mv = new ModelAndView();
+		mv.setViewName("/adminNodes");
+		return mv;
+	}
+
+	@RequestMapping("/getAllNodes")
+	public Nodes getAllNodes() {
+		final Nodes nodes = this.userNodeService.getNodes(10000);
+		return nodes;
 	}
 
 	@RequestMapping("/logout")

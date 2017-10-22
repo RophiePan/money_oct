@@ -29,6 +29,9 @@ public class Bonus {
 	@NotNull
 	private Date awardDate;
 
+	@NotNull
+	private int status;
+
 	private String comments;
 
 	public Integer getBonusId() {
@@ -69,6 +72,14 @@ public class Bonus {
 
 	public void setAwardDate(final Date awardDate) {
 		this.awardDate = awardDate;
+	}
+
+	public int getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(final int status) {
+		this.status = status;
 	}
 
 	public String getComments() {

@@ -13,6 +13,7 @@ import com.hl.money.entity.Admin;
 import com.hl.money.entity.Bonus;
 import com.hl.money.entity.User;
 import com.hl.money.entity.UserNode;
+import com.hl.money.enums.BonusStatus;
 import com.hl.money.enums.BonusType;
 import com.hl.money.enums.SubBranch;
 import com.hl.money.enums.UserStatus;
@@ -68,6 +69,7 @@ public class Adminservice {
 
 		final UserNode newNode = new UserNode();
 		newNode.setUserId(userId);
+		newNode.setUserName(user.getUserName());
 		newNode.setCreateDate(new Date());
 		newNode.setRootNodeId(recommendId);
 
@@ -75,8 +77,11 @@ public class Adminservice {
 		// 如果推荐人下面没有结点，则推荐人直接作为ParentId来建点
 		if (size == 0) {
 			newNode.setParentId(recommendId);
+			newNode.setParentName(user.getRecommendName());
 			newNode.setSubBranch(SubBranch.LEFT.getValue());
 			newNode.setLevel(recommendUserNode.getLevel() + 1);
+
+			this.userNodeRepository.save(recommendUserNode);
 		} else {
 			final UserNode parentNode = this.findNodeByRecommendId(allNode, recommendUserNode, recommendUserNode);
 			if (this.getChildrenSize(allNode, parentNode.getUserId()) == 0) {
@@ -88,6 +93,9 @@ public class Adminservice {
 			}
 			newNode.setLevel(parentNode.getLevel() + 1);
 			newNode.setParentId(parentNode.getUserId());
+			newNode.setParentName(parentNode.getUserName());
+
+			this.userNodeRepository.save(parentNode);
 		}
 		this.userNodeRepository.save(newNode);
 
@@ -99,6 +107,7 @@ public class Adminservice {
 		recommendBonus.setBonusType(BonusType.RECOMMEND.toString());
 		recommendBonus.setAwardDate(new Date());
 		recommendBonus.setComments("推荐用户：" + user.getUserName() + "-" + newNode.getUserId() + " 奖金");
+		recommendBonus.setStatus(BonusStatus.UNDELIVER.getValue());
 		bonusList.add(recommendBonus);
 
 		final List<UserNode> parentNodes = new ArrayList<>();
@@ -111,19 +120,21 @@ public class Adminservice {
 			nodeBonus.setBonusType(BonusType.CREATENODE.toString());
 			nodeBonus.setUserId(userNode.getUserId());
 			nodeBonus.setComments("用户：" + user.getUserName() + "-" + newNode.getUserId() + "  建点奖金");
+			nodeBonus.setStatus(BonusStatus.UNDELIVER.getValue());
 			bonusList.add(nodeBonus);
 		}
 		this.bonusRepository.save(bonusList);
 
 		// 用户审核通过
 		user.setUserStatus(UserStatus.AUDITED.getValue());
+		user.setAuditDate(new Date());
 		this.userRepository.save(user);
 
 	}
 
 	private void getParentNode(final List<UserNode> allNode, final int userId, final List<UserNode> parentNodes) {
 		for (final UserNode userNode : allNode) {
-			if ((userNode.getUserId() == userId) && (userNode.getUserId() != 10000)) {
+			if ((userNode.getUserId() == userId) && (userNode.getUserId() != 0)) {
 				parentNodes.add(userNode);
 				this.getParentNode(allNode, userNode.getParentId(), parentNodes);
 			}

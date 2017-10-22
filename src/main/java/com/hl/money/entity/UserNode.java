@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 public class UserNode {
 	@Id
@@ -16,12 +18,16 @@ public class UserNode {
 	private Integer nodeId;
 	@NotNull
 	private Integer userId;
+	@NotBlank
+	private String userName;
 	@NotNull
 	@Column(columnDefinition = "推荐人的Id 也是此人的根节点")
 	private Integer rootNodeId;
 	@NotNull
 	@Column(columnDefinition = "父节点的Id")
 	private Integer parentId;
+	@NotBlank
+	private String parentName;
 	@NotNull
 	@Column(columnDefinition = "父节点的分支，1 代表左分支，2 代表右分支。 每个分支最多含有9层，9个节点（包含自己）")
 	private Integer subBranch;
@@ -58,6 +64,14 @@ public class UserNode {
 		this.userId = userId;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public Integer getRootNodeId() {
 		return this.rootNodeId;
 	}
@@ -72,6 +86,14 @@ public class UserNode {
 
 	public void setParentId(final Integer parentId) {
 		this.parentId = parentId;
+	}
+
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
 	public Date getCreateDate() {

@@ -29,6 +29,8 @@ public class User {
 	private String phoneNumber;
 	@NotNull
 	private Integer recommendId;
+	@NotBlank
+	private String recommendName;
 	@NotNull
 	private Integer userStatus;
 	@NotNull
@@ -98,6 +100,14 @@ public class User {
 
 	public void setRecommendId(final Integer recommendId) {
 		this.recommendId = recommendId;
+	}
+
+	public String getRecommendName() {
+		return this.recommendName;
+	}
+
+	public void setRecommendName(final String recommendName) {
+		this.recommendName = recommendName;
 	}
 
 	public Integer getUserStatus() {

@@ -22,7 +22,7 @@ $(function() {
 			"translate(" + margin.left + "," + margin.top + ")");
 
 
-	d3.json("/user/getAllNodes", function(json) {
+	d3.json("/admin/getAllNodes", function(json) {
 		console.log(JSON.stringify(json));
 
 		root = json;
